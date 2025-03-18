@@ -2,7 +2,6 @@ package com.onlineshopping.project2restapi.service;
 
 import com.onlineshopping.project2restapi.dto.CustomerDTO;
 import com.onlineshopping.project2restapi.exception.ErrorMessages;
-import com.onlineshopping.project2restapi.exception.ResourceAlreadyExistsException;
 import com.onlineshopping.project2restapi.exception.ResourceNotFoundException;
 import com.onlineshopping.project2restapi.model.Customer;
 import com.onlineshopping.project2restapi.repository.CustomerRepository;

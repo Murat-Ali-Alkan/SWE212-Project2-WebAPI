@@ -1,8 +1,8 @@
 package com.onlineshopping.project2restapi.controller;
 
 import com.onlineshopping.project2restapi.dto.OrderDTO;
-import com.onlineshopping.project2restapi.model.Order;
 import com.onlineshopping.project2restapi.service.OrderService;
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -34,14 +34,14 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<OrderDTO> addOrder(@RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<OrderDTO> addOrder(@Valid @RequestBody OrderDTO orderDTO) {
         //if(orderDTO== null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>(orderService.createOrder(orderDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @Valid @RequestBody OrderDTO orderDTO) {
         //if (id == null || id == 0 || orderDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         return new ResponseEntity<>(orderService.updateOrder(id, orderDTO), HttpStatus.OK);

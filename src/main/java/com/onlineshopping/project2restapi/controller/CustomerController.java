@@ -2,8 +2,10 @@ package com.onlineshopping.project2restapi.controller;
 
 import com.onlineshopping.project2restapi.dto.CustomerDTO;
 import com.onlineshopping.project2restapi.service.CustomerService;
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,14 +38,14 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<CustomerDTO> addCustomer(@RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> addCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
         //if(customerDTO== null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         logger.info("Add customer ",customerDTO.toString());
         return new ResponseEntity<>(customerService.createCustomer(customerDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") Long id, @RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") Long id, @Valid @RequestBody CustomerDTO customerDTO) {
         //if (id == null || id == 0 || customerDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         logger.info("Update customer ",id);
         return new ResponseEntity<>(customerService.updateCustomer(id, customerDTO), HttpStatus.OK);

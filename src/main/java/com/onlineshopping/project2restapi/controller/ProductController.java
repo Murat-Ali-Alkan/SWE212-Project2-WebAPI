@@ -3,6 +3,7 @@ package com.onlineshopping.project2restapi.controller;
 import com.onlineshopping.project2restapi.dto.CustomerDTO;
 import com.onlineshopping.project2restapi.dto.ProductDTO;
 import com.onlineshopping.project2restapi.service.ProductService;
+import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -37,14 +38,14 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ProductDTO> addProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductDTO productDTO) {
         //if(productDTO== null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         logger.info("Add product ",productDTO.toString());
         return new ResponseEntity<>(productService.createProduct(productDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") Long id, @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") Long id, @Valid @RequestBody ProductDTO productDTO) {
         //if (id == null || id == 0 || productDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         logger.info("Update product ",id);
         return new ResponseEntity<>(productService.updateProduct(id, productDTO), HttpStatus.OK);

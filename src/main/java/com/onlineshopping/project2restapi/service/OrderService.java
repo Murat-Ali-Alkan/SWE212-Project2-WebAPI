@@ -33,7 +33,7 @@ public class OrderService {
     }
 
     public List<OrderDTO> getAllOrders() {
-        return orderRepository.findAll().stream().map(Order::viewAsOrderDTO).toList();
+        return orderRepository.findAll().stream().map(Order::viewAsOrderWithCustomerAndProducts).toList();
     }
 
     public OrderDTO createOrder(OrderDTO orderDTO) {

@@ -49,6 +49,24 @@ public class Order {
         return new OrderDTO(id,date,city,status);
     }
 
+    public OrderDTO viewAsOrderWithCustomerAndProducts() {
+        CustomerDTO customerDTO = new CustomerDTO(
+                customer.getId(),
+                customer.getName(),
+                customer.getAddress(),
+                customer.getPhone()
+        );
+        ProductDTO productDTO = new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getSupplier(),
+                product.getPrice()
+        );
+
+        return new OrderDTO(id,date,city,status,customerDTO,productDTO);
+    }
+
+
     public Order(LocalDateTime date, String city, String status, Customer customer, Product product) {
         this.date = date;
         this.city = city;
