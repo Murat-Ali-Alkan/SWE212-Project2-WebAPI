@@ -74,4 +74,11 @@ public class OrderService {
         orderRepository.delete(order);
     }
 
+    public List<OrderDTO> searchOrdersByStatusService(String status){
+        return orderRepository.searchOrdersByStatus(status)
+                .stream()
+                .map(Order::viewAsOrderWithCustomerAndProducts)
+                .toList();
+    }
+
 }

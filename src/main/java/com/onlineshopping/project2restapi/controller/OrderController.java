@@ -53,4 +53,9 @@ public class OrderController {
         orderService.deleteOrder(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping("/search")
+    public List<OrderDTO> searchOrdersByStatusController(@RequestParam String status){
+        return orderService.searchOrdersByStatusService(status);
+    }
 }

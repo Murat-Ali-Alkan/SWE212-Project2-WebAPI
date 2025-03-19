@@ -65,4 +65,8 @@ public class ProductService {
 
         productRepository.deleteById(id);
     }
+
+    public List<ProductDTO> searchProductsByNameService(String name){
+        return productRepository.searchProductsByName(name);
+    }
 }

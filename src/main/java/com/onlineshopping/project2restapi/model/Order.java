@@ -25,7 +25,7 @@ public class Order {
     @Column(name="city", nullable = false, length = 32)
     private String city;
 
-    @Column(nullable = false, length = 32)
+    @Column(name = "status", nullable = false, length = 32)
     private String status;
 
     @ManyToOne

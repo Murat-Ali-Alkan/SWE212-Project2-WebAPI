@@ -1,6 +1,7 @@
 package com.onlineshopping.project2restapi.controller;
 
 import com.onlineshopping.project2restapi.dto.CustomerDTO;
+import com.onlineshopping.project2restapi.model.Customer;
 import com.onlineshopping.project2restapi.service.CustomerService;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
@@ -58,5 +59,10 @@ public class CustomerController {
         customerService.deleteCustomer(id);
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping("/search")
+    public List<CustomerDTO> searchCustomersByNameController(@RequestParam String name){
+        return customerService.searchCustomersByNameService(name);
     }
 }
