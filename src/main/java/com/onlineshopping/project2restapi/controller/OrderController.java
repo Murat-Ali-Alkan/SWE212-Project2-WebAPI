@@ -54,7 +54,7 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping("/search")
+    @GetMapping("/search")
     public List<OrderDTO> searchOrdersByStatusController(@RequestParam String status){
         return orderService.searchOrdersByStatusService(status);
     }

@@ -7,13 +7,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.MethodNotAllowedException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
 
@@ -39,11 +40,17 @@ public class GlobalExceptionHandler {
     }
 
 
-    @ExceptionHandler(value= NoHandlerFoundException.class)
+
+    @ExceptionHandler(NoHandlerFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException ex) {
-        return ResponseEntity.status((HttpStatus.NOT_FOUND))
-                .body(new ErrorResponse(ErrorMessages.ENDPOINT_NOT_FOUND,HttpStatus.NOT_FOUND.value()));
+    public ResponseEntity<Map<String,Object>> handleNotFoundException(NoHandlerFoundException ex) {
+        Map<String, Object> errorDetails = new HashMap<>();
+        errorDetails.put("error", "Endpoint Not Found");
+        errorDetails.put("message", "The requested URL was not found on the server.");
+        errorDetails.put("path", ex.getRequestURL());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(errorDetails);
     }
 
 

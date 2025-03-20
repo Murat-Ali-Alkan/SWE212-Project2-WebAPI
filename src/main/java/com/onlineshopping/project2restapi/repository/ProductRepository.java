@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "SELECT * FROM products p where lower(p.name) like lower(concat('%' , :name , '%'))" , nativeQuery = true)
-    List<ProductDTO> searchProductsByName(@Param("name") String name);
+    List<Product> searchProductsByName(@Param("name") String name);
 }

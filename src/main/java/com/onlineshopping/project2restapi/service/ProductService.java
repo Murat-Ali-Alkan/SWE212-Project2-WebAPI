@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService {
@@ -67,6 +68,10 @@ public class ProductService {
     }
 
     public List<ProductDTO> searchProductsByNameService(String name){
-        return productRepository.searchProductsByName(name);
+        List<Product> repoProducts = productRepository.searchProductsByName(name);
+        return repoProducts
+                .stream()
+                .map(Product::viewAsProductDTO)
+                .toList();
     }
 }

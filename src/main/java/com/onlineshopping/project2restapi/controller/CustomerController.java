@@ -1,12 +1,10 @@
 package com.onlineshopping.project2restapi.controller;
 
 import com.onlineshopping.project2restapi.dto.CustomerDTO;
-import com.onlineshopping.project2restapi.model.Customer;
 import com.onlineshopping.project2restapi.service.CustomerService;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,8 +59,8 @@ public class CustomerController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @RequestMapping("/search")
-    public List<CustomerDTO> searchCustomersByNameController(@RequestParam String name){
+    @GetMapping("/search")
+    public List<CustomerDTO> searchCustomersByName(@RequestParam String name){
         return customerService.searchCustomersByNameService(name);
     }
 }
