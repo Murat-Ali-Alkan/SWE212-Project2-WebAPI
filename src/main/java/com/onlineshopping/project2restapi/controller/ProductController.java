@@ -60,4 +60,9 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping("/search")
+    public List<ProductDTO> searchProductsByNameController(@RequestParam String name){
+        return productService.searchProductsByNameService(name);
+    }
+
 }

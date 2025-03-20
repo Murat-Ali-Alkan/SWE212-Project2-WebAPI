@@ -60,4 +60,8 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
+    public List<CustomerDTO> searchCustomersByNameService(String name){
+        return customerRepository.searchCustomersByName(name);
+    }
+
 }
