@@ -36,14 +36,11 @@ public class ProductService {
 
     public ProductDTO createProduct(ProductDTO productDTO) {
 
-        // Product'i eklemden once regexle kontrol yapılabilir
-        // Product'in id sini manuel girmeye izin verimedi fakat verilsin mi?
-
         Product product = new Product(productDTO.getName(),productDTO.getSupplier(),productDTO.getPrice());
 
         if(productRepository.checkDuplicateSupplierNamePair(productDTO.getSupplier(),productDTO.getName())){
-            throw new DuplicateSupplierNameException("A product with supplier '" + productDTO.getSupplier()
-                    + "' and name '" + productDTO.getName() + "' already exists");
+            throw new DuplicateSupplierNameException("A product with Supplier '" + productDTO.getSupplier()
+                    + "' and Product name '" + productDTO.getName() + "' already exists");
         }
 
         return productRepository.save(product).viewAsProductDTO();
@@ -54,7 +51,6 @@ public class ProductService {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
 
-
             Product productToUpdate = new Product(id,productDTO.getName(),productDTO.getSupplier(),productDTO.getPrice());
 
             if(productRepository.checkDuplicateSupplierNamePair(productDTO.getSupplier() , productDTO.getName())){
@@ -62,7 +58,6 @@ public class ProductService {
                         + "' and name '" + productDTO.getName() + "' already exists");
             }
 
-            // Product'i eklemden once regexle kontrol yapılabilir
 
             return productRepository.save(productToUpdate).viewAsProductDTO();
         }
