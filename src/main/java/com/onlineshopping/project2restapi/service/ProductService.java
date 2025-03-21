@@ -1,6 +1,7 @@
 package com.onlineshopping.project2restapi.service;
 
 import com.onlineshopping.project2restapi.dto.ProductDTO;
+import com.onlineshopping.project2restapi.exception.DuplicateSupplierNameException;
 import com.onlineshopping.project2restapi.exception.ErrorMessages;
 import com.onlineshopping.project2restapi.exception.ResourceNotFoundException;
 import com.onlineshopping.project2restapi.model.Product;
@@ -40,6 +41,11 @@ public class ProductService {
 
         Product product = new Product(productDTO.getName(),productDTO.getSupplier(),productDTO.getPrice());
 
+        if(productRepository.checkDuplicateSupplierNamePair(productDTO.getSupplier(),productDTO.getName())){
+            throw new DuplicateSupplierNameException("A product with supplier '" + productDTO.getSupplier()
+                    + "' and name '" + productDTO.getName() + "' already exists");
+        }
+
         return productRepository.save(product).viewAsProductDTO();
 
     }
@@ -50,6 +56,11 @@ public class ProductService {
 
 
             Product productToUpdate = new Product(id,productDTO.getName(),productDTO.getSupplier(),productDTO.getPrice());
+
+            if(productRepository.checkDuplicateSupplierNamePair(productDTO.getSupplier() , productDTO.getName())){
+                throw new DuplicateSupplierNameException("A product with supplier '" + productDTO.getSupplier()
+                        + "' and name '" + productDTO.getName() + "' already exists");
+            }
 
             // Product'i eklemden once regexle kontrol yapılabilir
 
