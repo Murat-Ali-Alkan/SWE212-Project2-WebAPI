@@ -66,4 +66,12 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(DuplicateSupplierNameException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateSupplierNameException(DuplicateSupplierNameException ex){
+        ErrorResponse errorResponse = new ErrorResponse("an error occured: " + ex.getMessage(),
+                HttpStatus.INTERNAL_SERVER_ERROR.value());
+
+        return new ResponseEntity<>(errorResponse , HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
