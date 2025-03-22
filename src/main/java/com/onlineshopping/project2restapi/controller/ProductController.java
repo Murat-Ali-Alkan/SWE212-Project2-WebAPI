@@ -1,8 +1,10 @@
 package com.onlineshopping.project2restapi.controller;
 
+import com.onlineshopping.project2restapi.addDto.ProductAddDTO;
 import com.onlineshopping.project2restapi.dto.CustomerDTO;
 import com.onlineshopping.project2restapi.dto.ProductDTO;
 import com.onlineshopping.project2restapi.service.ProductService;
+import com.onlineshopping.project2restapi.updateDto.ProductUpdateDTO;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,17 +40,17 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> addProduct(@Valid @RequestBody ProductAddDTO productAddDTO) {
         //if(productDTO== null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        logger.info("Add product ",productDTO.toString());
-        return new ResponseEntity<>(productService.createProduct(productDTO), HttpStatus.CREATED);
+        logger.info("Add product ",productAddDTO.toString());
+        return new ResponseEntity<>(productService.createProduct(productAddDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") Long id, @Valid @RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable("id") Long id, @Valid @RequestBody ProductUpdateDTO productUpdateDTO) {
         //if (id == null || id == 0 || productDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         logger.info("Update product ",id);
-        return new ResponseEntity<>(productService.updateProduct(id, productDTO), HttpStatus.OK);
+        return new ResponseEntity<>(productService.updateProduct(id, productUpdateDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

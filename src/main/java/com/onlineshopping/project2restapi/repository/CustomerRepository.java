@@ -12,4 +12,6 @@ import java.util.List;
 public interface CustomerRepository extends JpaRepository<Customer,Long> {
     @Query(value = "SELECT * FROM customers c WHERE lower(c.name) like lower(concat('%' , :name , '%')) " , nativeQuery = true)
     List<CustomerDTO> searchCustomersByName(@Param("name") String name);
+
+    boolean existsByPhone(String phone);
 }

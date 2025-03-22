@@ -1,10 +1,13 @@
 package com.onlineshopping.project2restapi.service;
 
+import com.onlineshopping.project2restapi.addDto.CustomerAddDTO;
 import com.onlineshopping.project2restapi.dto.CustomerDTO;
+import com.onlineshopping.project2restapi.exception.DuplicatePhoneNumberException;
 import com.onlineshopping.project2restapi.exception.ErrorMessages;
 import com.onlineshopping.project2restapi.exception.ResourceNotFoundException;
 import com.onlineshopping.project2restapi.model.Customer;
 import com.onlineshopping.project2restapi.repository.CustomerRepository;
+import com.onlineshopping.project2restapi.updateDto.CustomerUpdateDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,19 +32,23 @@ public class CustomerService {
         return customerRepository.findAll().stream().map(Customer::viewAsCustomerDTO).toList();
     }
 
-    public CustomerDTO createCustomer(CustomerDTO customerDTO){
+    public CustomerDTO createCustomer(CustomerAddDTO CustomerAddDTO){
 
         // Customer'i eklemden once regexle kontrol yapılabilir
 
-        Customer customer = new Customer(customerDTO.getName(),customerDTO.getAddress(),customerDTO.getPhone());
+        Customer customer = new Customer(CustomerAddDTO.getName(),CustomerAddDTO.getAddress(),CustomerAddDTO.getPhone());
+
+        if(customerRepository.existsByPhone(CustomerAddDTO.getPhone())){
+            throw new DuplicatePhoneNumberException("Phone number already exists");
+        }
 
         return customerRepository.save(customer).viewAsCustomerDTO();
     }
 
-    public CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO){
+    public CustomerDTO updateCustomer(Long id, CustomerUpdateDTO customerUpdateDTO){
         Optional<Customer> customer = customerRepository.findById(id);
         if(customer.isPresent()){
-            Customer customerToUpdate = new Customer(id,customerDTO.getName(),customerDTO.getAddress(),customerDTO.getPhone());
+            Customer customerToUpdate = new Customer(id,customerUpdateDTO.getName(),customerUpdateDTO.getAddress(),customerUpdateDTO.getPhone());
 
             // Customer'i update etmeden once regexle kontrol yapılabilir
 

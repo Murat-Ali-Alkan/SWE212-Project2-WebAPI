@@ -1,7 +1,9 @@
 package com.onlineshopping.project2restapi.controller;
 
+import com.onlineshopping.project2restapi.addDto.CustomerAddDTO;
 import com.onlineshopping.project2restapi.dto.CustomerDTO;
 import com.onlineshopping.project2restapi.service.CustomerService;
+import com.onlineshopping.project2restapi.updateDto.CustomerUpdateDTO;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,17 +39,19 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<CustomerDTO> addCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> addCustomer(@Valid @RequestBody CustomerAddDTO customerAddDTO) {
         //if(customerDTO== null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        logger.info("Add customer ",customerDTO.toString());
-        return new ResponseEntity<>(customerService.createCustomer(customerDTO), HttpStatus.CREATED);
+
+
+        logger.info("Add customer ",customerAddDTO.toString());
+        return new ResponseEntity<>(customerService.createCustomer(customerAddDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") Long id, @Valid @RequestBody CustomerDTO customerDTO) {
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable("id") Long id, @Valid @RequestBody CustomerUpdateDTO customerUpdateDTO) {
         //if (id == null || id == 0 || customerDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         logger.info("Update customer ",id);
-        return new ResponseEntity<>(customerService.updateCustomer(id, customerDTO), HttpStatus.OK);
+        return new ResponseEntity<>(customerService.updateCustomer(id, customerUpdateDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
