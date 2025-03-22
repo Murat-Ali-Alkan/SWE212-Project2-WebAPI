@@ -1,11 +1,13 @@
 package com.onlineshopping.project2restapi.service;
 
+import com.onlineshopping.project2restapi.addDto.ProductAddDTO;
 import com.onlineshopping.project2restapi.dto.ProductDTO;
 import com.onlineshopping.project2restapi.exception.DuplicateSupplierNameException;
 import com.onlineshopping.project2restapi.exception.ErrorMessages;
 import com.onlineshopping.project2restapi.exception.ResourceNotFoundException;
 import com.onlineshopping.project2restapi.model.Product;
 import com.onlineshopping.project2restapi.repository.ProductRepository;
+import com.onlineshopping.project2restapi.updateDto.ProductUpdateDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,28 +36,28 @@ public class ProductService {
     }
 
 
-    public ProductDTO createProduct(ProductDTO productDTO) {
+    public ProductDTO createProduct(ProductAddDTO productAddDTO) {
 
-        Product product = new Product(productDTO.getName(),productDTO.getSupplier(),productDTO.getPrice());
+        Product product = new Product(productAddDTO.getName(),productAddDTO.getSupplier(),productAddDTO.getPrice());
 
-        if(productRepository.checkDuplicateSupplierNamePair(productDTO.getSupplier(),productDTO.getName())){
-            throw new DuplicateSupplierNameException("A product with Supplier '" + productDTO.getSupplier()
-                    + "' and Product name '" + productDTO.getName() + "' already exists");
+        if(productRepository.checkDuplicateSupplierNamePair(productAddDTO.getSupplier(),productAddDTO.getName())){
+            throw new DuplicateSupplierNameException("A product with Supplier '" + productAddDTO.getSupplier()
+                    + "' and Product name '" + productAddDTO.getName() + "' already exists");
         }
 
         return productRepository.save(product).viewAsProductDTO();
 
     }
 
-    public ProductDTO updateProduct(Long id, ProductDTO productDTO) {
+    public ProductDTO updateProduct(Long id, ProductUpdateDTO productUpdateDTO) {
         Optional<Product> product = productRepository.findById(id);
         if (product.isPresent()) {
 
-            Product productToUpdate = new Product(id,productDTO.getName(),productDTO.getSupplier(),productDTO.getPrice());
+            Product productToUpdate = new Product(id,productUpdateDTO.getName(),productUpdateDTO.getSupplier(),productUpdateDTO.getPrice());
 
-            if(productRepository.checkDuplicateSupplierNamePair(productDTO.getSupplier() , productDTO.getName())){
-                throw new DuplicateSupplierNameException("A product with supplier '" + productDTO.getSupplier()
-                        + "' and name '" + productDTO.getName() + "' already exists");
+            if(productRepository.checkDuplicateSupplierNamePair(productUpdateDTO.getSupplier() , productUpdateDTO.getName())){
+                throw new DuplicateSupplierNameException("A product with supplier '" + productUpdateDTO.getSupplier()
+                        + "' and name '" + productUpdateDTO.getName() + "' already exists");
             }
 
 

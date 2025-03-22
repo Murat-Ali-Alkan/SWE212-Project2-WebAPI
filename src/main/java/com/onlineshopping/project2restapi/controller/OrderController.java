@@ -1,7 +1,9 @@
 package com.onlineshopping.project2restapi.controller;
 
+import com.onlineshopping.project2restapi.addDto.OrderAddDTO;
 import com.onlineshopping.project2restapi.dto.OrderDTO;
 import com.onlineshopping.project2restapi.service.OrderService;
+import com.onlineshopping.project2restapi.updateDto.OrderUpdateDTO;
 import jakarta.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,17 +36,17 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<OrderDTO> addOrder(@Valid @RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<OrderDTO> addOrder(@Valid @RequestBody OrderAddDTO orderAddDTO) {
         //if(orderDTO== null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>(orderService.createOrder(orderDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(orderService.createOrder(orderAddDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @Valid @RequestBody OrderDTO orderDTO) {
+    public ResponseEntity<OrderDTO> updateOrder(@PathVariable Long id, @Valid @RequestBody OrderUpdateDTO orderUpdateDTO) {
         //if (id == null || id == 0 || orderDTO == null) return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>(orderService.updateOrder(id, orderDTO), HttpStatus.OK);
+        return new ResponseEntity<>(orderService.updateOrder(id, orderUpdateDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
