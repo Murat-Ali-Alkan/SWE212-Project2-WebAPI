@@ -23,6 +23,7 @@ public class ProductDTO {
 
     @NotNull(message = "Price cannot be null")
     @DecimalMin(value = "0.01", message = "Price must be greater than 0.01")
+    @Digits(integer = 8, fraction = 2, message = "Amount must have up to 8 integer digits and 2 fractional digits")
     private BigDecimal price;
 
 
