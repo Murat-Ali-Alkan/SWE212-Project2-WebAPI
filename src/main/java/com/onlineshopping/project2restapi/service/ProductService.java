@@ -55,11 +55,6 @@ public class ProductService {
 
             Product productToUpdate = new Product(id,productUpdateDTO.getName(),productUpdateDTO.getSupplier(),productUpdateDTO.getPrice());
 
-            if(productRepository.checkDuplicateSupplierNamePair(productUpdateDTO.getSupplier() , productUpdateDTO.getName())){
-                throw new DuplicateSupplierNameException("A product with supplier '" + productUpdateDTO.getSupplier()
-                        + "' and name '" + productUpdateDTO.getName() + "' already exists");
-            }
-
 
             return productRepository.save(productToUpdate).viewAsProductDTO();
         }

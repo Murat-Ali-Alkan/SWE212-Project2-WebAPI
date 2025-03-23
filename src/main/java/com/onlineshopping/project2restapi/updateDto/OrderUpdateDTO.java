@@ -2,6 +2,7 @@ package com.onlineshopping.project2restapi.updateDto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +17,11 @@ public class OrderUpdateDTO {
     private LocalDateTime date;
 
     @NotBlank(message = "City cannot be blank or null")
+    @Size(min = 3, max = 32, message = "City name must be between 3 and 32 characters")
     private String city;
 
     @NotBlank(message = "Status cannot be blank or null")
+    @Size(min = 3, max = 32, message = "Status must be between 3 and 32 characters")
     private String status;
 
     @NotNull(message = "CustomerId information is required")

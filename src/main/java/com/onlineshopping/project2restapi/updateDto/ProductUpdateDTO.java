@@ -16,10 +16,11 @@ import java.util.Objects;
 @Data
 public class ProductUpdateDTO {
     @NotBlank(message = "Product name cannot be blank or null")
-    @Size(min = 2, max = 100, message = "Product name must be between 2 and 100 characters")
+    @Size(min = 2, max = 16, message = "Product name must be between 2 and 16 characters")
     private String name;
 
     @NotBlank(message = "Supplier name cannot be blank or null")
+    @Size(min = 2, max = 16, message = "Supplier name must be between 2 and 16 characters")
     private String supplier;
 
     @NotNull(message = "Price cannot be null")
