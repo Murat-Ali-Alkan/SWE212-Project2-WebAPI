@@ -16,11 +16,11 @@ public class CustomerUpdateDTO {
 
 
     @NotBlank(message = "Name cannot be blank or null")
-    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+    @Size(min = 2, max = 16, message = "Name must be between 2 and 16 characters")
     private String name;
 
     @NotBlank(message = "Address cannot be blank or null")
-    @Size(min = 3, max = 100, message = "Address must be between 5 and 100 characters")
+    @Size(min = 3, max = 32, message = "Address must be between 3 and 32 characters")
     private String address;
 
     @NotEmpty(message = "Phone number cannot be empty")
