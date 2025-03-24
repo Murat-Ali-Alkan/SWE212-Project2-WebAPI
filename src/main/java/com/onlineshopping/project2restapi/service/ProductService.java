@@ -10,7 +10,9 @@ import com.onlineshopping.project2restapi.repository.ProductRepository;
 import com.onlineshopping.project2restapi.updateDto.ProductUpdateDTO;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -51,10 +53,16 @@ public class ProductService {
 
     public ProductDTO updateProduct(Long id, ProductUpdateDTO productUpdateDTO) {
         Optional<Product> product = productRepository.findById(id);
+
         if (product.isPresent()) {
 
             Product productToUpdate = new Product(id,productUpdateDTO.getName(),productUpdateDTO.getSupplier(),productUpdateDTO.getPrice());
 
+
+            if(productRepository.checkDuplicateSupplierNamePairForUpdate(id , productUpdateDTO.getSupplier() , productUpdateDTO.getName())){
+                throw new DuplicateSupplierNameException("A product with Supplier '" + productUpdateDTO.getSupplier()
+                        + "' and Product name '" + productUpdateDTO.getName() + "' already exists");
+            }
 
             return productRepository.save(productToUpdate).viewAsProductDTO();
         }
