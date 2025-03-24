@@ -15,4 +15,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query(value = "select exists(select 1 from products where supplier = :supplier and name = :name) " ,nativeQuery = true)
     boolean checkDuplicateSupplierNamePair(@Param("supplier") String supplier , @Param("name") String name);
+
+    @Query(value = "select exists(select 1 from products where supplier = :supplier and name = :name and id != :id)" , nativeQuery = true)
+    boolean checkDuplicateSupplierNamePairForUpdate(@Param("id") Long id , @Param("supplier") String supplier ,
+                                                    @Param("name") String name);
+
 }
