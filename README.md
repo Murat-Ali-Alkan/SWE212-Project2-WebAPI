@@ -34,6 +34,5 @@ Spring Boot 3 REST API Uygulaması, JPA (Hibernate) Code First yaklaşımını k
 ## 📂 Veritabanı Şeması
 
 Uygulama, aşağıda belirtilen veritabanı mimarisiyle çalışmaktadır.  
-*(Not: Bu alana veritabanı diyagramı ekleyeceksiniz.)*
 
 ![Veritabanı Mimarisi](assets/Project2Diagram.png)
